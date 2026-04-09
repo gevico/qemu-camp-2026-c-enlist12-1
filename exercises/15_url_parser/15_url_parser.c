@@ -14,6 +14,32 @@ int parse_url(const char* url) {
 
     // TODO: 在这里添加你的代码
     // I AM NOT DONE
+    const char* query = strchr(url, '?');
+    if (query == NULL) {
+        printf("URL中没有查询参数\n");
+        goto exit;
+    }
+    query++; // 跳过 '?'
+    char* query_copy = strdup(query);
+    if (query_copy == NULL) {
+        perror("内存分配失败");
+        err = 1;
+        goto exit;
+    }
+    char* token = strtok(query_copy, "&");
+    while (token != NULL) {
+        char* equal_sign = strchr(token, '=');
+        if (equal_sign != NULL) {
+            *equal_sign = '\0'; // 将key和value分开
+            char* key = token;
+            char* value = equal_sign + 1;
+            printf("%s: %s\n", key, value);
+        } else {
+            printf("无效的参数: %s\n", token);
+        }
+        token = strtok(NULL, "&");
+    }
+    free(query_copy);
 
 exit:
     return err;

@@ -62,6 +62,24 @@ int shell_parse(char *buf, char *argv[])
     // 返回：参数个数argc
     // 提示：使用状态机的方式处理，注意处理字符串结束符
     // I AM NOT DONE
+    char *p = buf;
+    while (*p != '\0') {
+        while (*p == ' ' || *p == '\t') {
+            p++;
+        }
+        if (*p == '\0') {
+            break;
+        }
+        argv[argc++] = p;
+        while (*p != ' ' && *p != '\t' && *p != '\0') {
+            p++;
+        }
+        if (*p != '\0') {
+            *p = '\0';
+            p++;
+        }
+    }
+    argv[argc] = NULL;
     return argc;
 }
 
