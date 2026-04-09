@@ -12,8 +12,6 @@
 int parse_url(const char* url) {
     int err = 0;
 
-    // TODO: 在这里添加你的代码
-    // I AM NOT DONE
     const char* query = strchr(url, '?');
     if (query == NULL) {
         printf("URL中没有查询参数\n");
